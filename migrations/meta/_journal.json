@@ -1,0 +1,27 @@
+{
+  "version": "5",
+  "dialect": "pg",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1704033791532,
+      "tag": "0000_supreme_sway",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1704034218016,
+      "tag": "0001_overjoyed_iron_man",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1704034822618,
+      "tag": "0002_lumpy_zarek",
+      "breakpoints": true
+    }
+  ]
+}
