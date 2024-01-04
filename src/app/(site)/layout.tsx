@@ -1,3 +1,4 @@
+import Header from "@/components/landing-page/Header";
 import { FC } from "react";
 
 interface LayoutProps {
@@ -5,7 +6,12 @@ interface LayoutProps {
 }
 
 const Layout: FC<LayoutProps> = ({ children }) => {
-  return <main>{children}</main>;
+  return (
+    <main>
+      <Header />
+      {children}
+    </main>
+  );
 };
 
 export default Layout;
