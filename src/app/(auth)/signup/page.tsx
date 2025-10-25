@@ -12,6 +12,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { actionSignUpUser } from "@/lib/server-actions/auth-actions";
 import { FormSchema } from "@/lib/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import clsx from "clsx";
@@ -27,18 +28,18 @@ import Template from "../Template";
 
 const SignUpFormSchema = z
   .object({
-    email: z.string().describe("Email").email({ message: "Invalid email" }),
+    email: z.string().describe("Email").email({ message: "Invalid Email" }),
     password: z
       .string()
       .describe("Password")
-      .min(6, { message: "Password is required" }),
+      .min(6, "Password must be minimum 6 characters"),
     confirmPassword: z
       .string()
-      .describe("Confirm password")
-      .min(6, { message: "Password is required" }),
+      .describe("Confirm Password")
+      .min(6, "Password must be minimum 6 characters"),
   })
   .refine((data) => data.password === data.confirmPassword, {
-    message: "Passwords do not match",
+    message: "Passwords don't match.",
     path: ["confirmPassword"],
   });
 export default function Signup() {
@@ -70,13 +71,14 @@ export default function Signup() {
 
   const isLoading = form.formState.isSubmitting;
   const onSubmit = async ({ email, password }: z.infer<typeof FormSchema>) => {
-    // const { error } = await actionSignUpUser({ email, password });
-    // if (error) {
-    //   setSubmitError(error.message);
-    //   form.reset();
-    //   return;
-    // }
-    // setConfirmation(true);
+    const { error } = await actionSignUpUser({ email, password });
+    if (error) {
+      // @ts-ignore
+      setSubmitError(error.message);
+      form.reset();
+      return;
+    }
+    setConfirmation(true);
   };
 
   return (
@@ -128,6 +130,7 @@ export default function Signup() {
                         {...field}
                       />
                     </FormControl>
+                    <FormMessage />
                   </FormItem>
                 )}
               />
@@ -144,6 +147,7 @@ export default function Signup() {
                         {...field}
                       />
                     </FormControl>
+                    <FormMessage />
                   </FormItem>
                 )}
               />
